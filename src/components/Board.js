@@ -8,7 +8,27 @@ export default function Board() {
     const {word} = useContext(WordleContext)
     const content = WikiPage()
     const extract = <div dangerouslySetInnerHTML={{ __html: content.extract }} />
-    const links = <div> <ul> {content.links.map((link, index) => (<li key={index}>{link.title}</li> ))} </ul> </div>
+    const links = content.links && Array.isArray(content.links) ? (
+        <div>
+            <ul>
+                {content.links.map((link, index) => (
+                    <li key={index}>
+                        <a href="#" onClick={() => window.location.reload()}>{link.title}</a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    ) : null ;
+    // const links = (<div> <ul> {content.links.map((link, index) => (<li key={index}>{link.title}</li> ))} </ul> </div>);
+    // const links = content.links && Array.isArray(content.links) ? (
+    //     <div>
+    //       <ul>
+    //         {content.links.map((link, index) => (
+    //           <li key={index}>{link.title}</li>
+    //         ))}
+    //       </ul>
+    //     </div>
+    //   ) : null ;
     return (
         <div className="flex flex-col justify-center items-center" >
             <h1 className="font-extrabold text-5xl m-4">Totally not WORDLE</h1>
