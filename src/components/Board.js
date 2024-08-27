@@ -6,11 +6,7 @@ import fetchWikiPage from './Page/WikiPage'
 import LinkCounter from './Page/LinkCounter'
 
 export default function Board() {
-    const {word} = useContext(WordleContext)
-    // let extract = 'initial'
-    // let links = 'initial'
-    // const content = WikiPage({ title: 'Wikipedia' });
-    // let title = 'Wikipedia'
+    const {word, initialPage, targetPage} = useContext(WordleContext)
 
     // Use useRef to persist the incrementCounter function
     const counterRef = useRef(null);
@@ -20,50 +16,37 @@ export default function Board() {
 
     // State to keep track of the content
     const [content, setContent] = useState({ extract: 'teste', links: [] });
-    const [title, setTitle] = useState('Wikipedia')
-    // const [content, setContent] = useState(fetchWikiPage({ title: 'Wikipedia' }));
+    const [title, setTitle] = useState(initialPage)
+    const [victory, setVictory] = useState('Not yet');
 
     // Fetch initial content
     useEffect(() => {
-        // const initialContent = WikiPage({ title: 'Wikipedia' });
-        // setContent(initialContent);
-        // setContent(fetchWikiPage({ title: 'Wikipedia' }));
-        // console.log(content.extract)
-
+        // Initialize the counter only once
+        counterRef.current = LinkCounter();
+        
+        // Fetch initial content
         const fetchData = async () => {
             const data = await fetchWikiPage({ title: title });
             setContent(data);
         }
         fetchData()
-        console.log(content.extract)
-        // extract = <div dangerouslySetInnerHTML={{ __html: content.extract }} />
-        // console.log(extract)
-    }, []);
-
-    // Fetch initial content using the custom hook
-    // const content = WikiPage('Wikipedia');
-    
-    // Initialize the counter only once
-    useEffect(() => {
-        counterRef.current = LinkCounter();
     }, []);
 
     // Function to handle link click and update counter
     const handleLinkClick = (link_title) => {
         const newCount = counterRef.current();
         setCounterValue(newCount);
-        // const newContent = fetchWikiPage({ title: 'Stack Overflow' });
-        // console.log(newContent)
-        // const newContent = {extract: 'hello', links: []};
-        // setContent(newContent); // Update state with the new content
         setTitle(link_title);
-        console.log('title: '.concat(title));
+        if (targetPage === link_title) {
+            setVictory('You have won');
+        };
+        // console.log('title: '.concat(title));
         const fetchData = async () => {
             const data = await fetchWikiPage({ title: link_title });
             setContent(data);
         }
         fetchData()
-        console.log(content.extract);
+        // console.log(content.extract);
     };
     
     const extract = <div dangerouslySetInnerHTML={{ __html: content.extract }} />
@@ -81,10 +64,13 @@ export default function Board() {
 
     return (
         <div className="flex flex-col justify-center items-center" >
-            <h1 className="font-extrabold text-5xl m-4">Totally not WORDLE</h1>
+            {/* <h1 className="font-extrabold text-5xl m-4">Totally not WORDLE</h1> */}
             {/* <Grid/> */}
             {/* <Keyboard/> */}
             {/* <WikiPage/> */}
+            <h2 className="font-extrabold text-3xl m-4">Go from "{initialPage}" to "{targetPage}" in the fewest links</h2>
+            <h3>Currently at {title}, with {counterValue} links</h3>
+            {victory}
             {extract}
             {links}
             <div>Counter: {counterValue}</div> {/* Display the counter value */}

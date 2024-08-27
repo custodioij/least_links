@@ -7,7 +7,9 @@ import _ from 'lodash'
 export const WordleContext = createContext()
 
 function App() {
-
+  const [targetPage, setTargetPage ] = useState('Amsterdam') // Wikipedia -> Apple Inc. -> AMD
+  const [initialPage, setInitialPage ] = useState('Wikipedia')
+  // const [currentPage, setCurrentPage ] = useState(initialPage)
   const [word, setWord ] = useState(_.sample(dictionary).toUpperCase())
   const [completedRows , setCompletedRows] = useState([])
   const [guessWord , setGuessWord] = useState("")
@@ -45,7 +47,10 @@ function App() {
          currentRow, 
          word ,
          guessWord ,
-          backspace 
+          backspace ,
+          initialPage,
+          targetPage //,
+          // currentPage
 
     }} >
         <Board/>
