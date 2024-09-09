@@ -25,6 +25,15 @@ export default function Board() {
         // Initialize the counter only once
         counterRef.current = LinkCounter();
 
+        // Fetch initial content
+        const fetchData = async () => {
+            const data = await fetchWikiPage({ title: title });
+            setContent(data);
+        }
+        fetchData()
+    }, []);
+
+    useEffect(() => {
         // Example: Add onClick event to all links
         if (contentRef.current) {
             const links = contentRef.current.querySelectorAll('a');
@@ -35,12 +44,6 @@ export default function Board() {
                 };
             });
         }
-        // Fetch initial content
-        const fetchData = async () => {
-            const data = await fetchWikiPage({ title: title });
-            setContent(data);
-        }
-        fetchData()
     }, [content]);
 
     // Function to handle link click and update counter
