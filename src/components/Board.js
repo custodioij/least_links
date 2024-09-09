@@ -15,9 +15,9 @@ export default function Board() {
     const [counterValue, setCounterValue] = useState(0);
 
     // State to keep track of the content
-    const [content, setContent] = useState({ extract: 'teste', links: [] });
+    const [content, setContent] = useState({ pageText: 'teste' });
     const [title, setTitle] = useState(initialPage)
-    const [victory, setVictory] = useState('Not yet');
+    const [victory, setVictory] = useState('');
 
     // Fetch initial content
     useEffect(() => {
@@ -38,7 +38,7 @@ export default function Board() {
         setCounterValue(newCount);
         setTitle(link_title);
         if (targetPage === link_title) {
-            setVictory('You have won');
+            setVictory('You have won in '.concat(newCount).concat(' steps!'));
         };
         // console.log('title: '.concat(title));
         const fetchData = async () => {
@@ -68,11 +68,12 @@ export default function Board() {
             {/* <Grid/> */}
             {/* <Keyboard/> */}
             {/* <WikiPage/> */}
+            <div dangerouslySetInnerHTML={{ __html: content }} />
             <h2 className="font-extrabold text-3xl m-4">Go from "{initialPage}" to "{targetPage}" in the fewest links</h2>
             <h3>Currently at {title}, with {counterValue} links</h3>
-            {victory}
-            {extract}
-            {links}
+            <h2 className="font-extrabold text-2xl m-4">{victory}</h2>
+            {/* {extract}
+            {links} */}
             <div>Counter: {counterValue}</div> {/* Display the counter value */}
             <div><a href="#" onClick={() => handleLinkClick()}>{'botao teste'}</a></div>
             <small className='m-5' >#Refresh Page to play again with different word.</small>
