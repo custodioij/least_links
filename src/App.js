@@ -9,7 +9,7 @@ export const WordleContext = createContext()
 function App() {
   const [targetPage, setTargetPage ] = useState('Amsterdam') // Wikipedia -> Apple Inc. -> AMD
   const [initialPage, setInitialPage ] = useState('Wikipedia')
-  // const [currentPage, setCurrentPage ] = useState(initialPage)
+  // const [initialPage, setInitialPage ] = useState('Katarzyna Niewiadoma')
   const [word, setWord ] = useState(_.sample(dictionary).toUpperCase())
   const [completedRows , setCompletedRows] = useState([])
   const [guessWord , setGuessWord] = useState("")

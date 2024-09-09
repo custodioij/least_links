@@ -32,7 +32,6 @@ export default async function fetchWikiPage({ title = 'Katarzyna Niewiadoma' }) 
         // Remove citations at the bottom
         const partsCitations = pageText.split(separatorCitations);
         pageText = partsCitations[0]
-        console.log(pageText)
         // Remove footnote marks
         // Everything between <sup ... class="reference"> ... </sup>
         // Let's try Regex. See for an example: https://stackoverflow.com/questions/22677593/replace-all-instances-of-anchor-tag-in-a-large-string
