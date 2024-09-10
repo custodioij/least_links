@@ -48,14 +48,12 @@ export default function Board() {
 
     // Function to handle link click and update counter
     const handleLinkClick = (link_title) => {
-        console.log('here')
         const newCount = counterRef.current();
         setCounterValue(newCount);
         setTitle(link_title);
         if (targetPage === link_title) {
             setVictory('You have won in '.concat(newCount).concat(' steps!'));
         };
-        // console.log('title: '.concat(title));
         const fetchData = async () => {
             const data = await fetchWikiPage({ title: link_title });
             setContent(data);
@@ -121,10 +119,10 @@ export default function Board() {
             <h3>Currently at {title}, with {counterValue} links</h3>
             <h2 className="font-extrabold text-2xl m-4">{victory}</h2>
             <div ref={contentRef} dangerouslySetInnerHTML={{ __html: sanitizeExtract(content) }} />
-            <div>Counter: {counterValue}</div> {/* Display the counter value */}
-            <div><a href="#" onClick={() => handleLinkClick()}>{'botao teste'}</a></div>
+            {/* <div>Counter: {counterValue}</div> // Display the counter value */}
+            {/* <div><a href="#" onClick={() => handleLinkClick()}>{'botao teste'}</a></div>
             <small className='m-5' >#Refresh Page to play again with different word.</small>
-            <small className='rotate-180 text-[4px]' > {word} </small>
+            <small className='rotate-180 text-[4px]' > {word} </small> */}
         </div>
     )
 }
